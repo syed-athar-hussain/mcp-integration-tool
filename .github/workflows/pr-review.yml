@@ -1,0 +1,16 @@
+name: MCP Agent PR Review
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger MCP Agent
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"pr_url": "${{ github.event.pull_request.html_url }}", "repo": "${{ github.repository }}"}' \
+            https://your-mcp-backend.onrender.com/api/webhook/github
